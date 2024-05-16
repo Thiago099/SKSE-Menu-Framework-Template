@@ -6,10 +6,11 @@
 namespace SkyrimImguiInternal {
     std::string key;
 
+    ImGuiContext* ctx;
+
     EXTERNAL_FUNCTION void AddSection(const char* menu, std::function<void()> const& rendererFunction);
 
-    EXTERNAL_FUNCTION ImGuiContext* GetContext();
-
+    EXTERNAL_FUNCTION void SetContextFetch(std::function<void(ImGuiContext*)> contextSetFunction);
 
 }
 namespace SkyrimImgui{
@@ -23,6 +24,8 @@ namespace SkyrimImgui{
 
     void Init(std::string key) {
         SkyrimImguiInternal::key = key;
-        ImGui::SetCurrentContext(SkyrimImguiInternal::GetContext());
+        SkyrimImguiInternal::SetContextFetch([](ImGuiContext* ctx) {
+            ImGui::SetCurrentContext(ctx);
+        });
     }
 }
