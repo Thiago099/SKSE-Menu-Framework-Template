@@ -20,14 +20,14 @@ SKSEPluginLoad(const SKSE::LoadInterface *skse) {
     SKSE::GetMessagingInterface()->RegisterListener(OnMessage);
 
     SkyrimImgui::Init("Another Dll");
-    SkyrimImgui::AddSection("screen4", []() { ImGui::Text("Screen 4 data"); });
-    SkyrimImgui::AddSection("group1/screen5", []() { ImGui::Text("screen 5 data"); });
-    SkyrimImgui::AddSection("group1/screen6", []() { ImGui::Text("screen 6 data"); });
+    SkyrimImgui::AddSection("screen4", "Screen 4", []() { ImGui::Text("Screen 4 data"); });
+    SkyrimImgui::AddSection("group1/screen5", "Screen 5", []() { ImGui::Text("screen 5 data"); });
+    SkyrimImgui::AddSection("group1/screen6", "Screen 6", []() { ImGui::Text("screen 6 data"); });
 
     ImGuiWindowFlags window_flags = 0;
     window_flags |= ImGuiWindowFlags_NoCollapse;
 
-    SkyrimImgui::AddWindow("MyVeryOwnWindow", window_flags, []() { ImGui::Text("screen 64 data"); });
+    //SkyrimImgui::AddWindow("MyVeryOwnWindow", window_flags, []() { ImGui::Text("screen 64 data"); });
 
     return true;
 }
