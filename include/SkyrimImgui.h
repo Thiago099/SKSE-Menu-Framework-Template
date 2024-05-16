@@ -1,13 +1,23 @@
 #pragma once
 #include <imgui.h>
 
-extern "C"
-    [[maybe_unused]] __declspec(dllimport) void AddRenderer(const char* menu, std::function<void()> const&rendererFunction);
+#define EXTERNAL_FUNCTION extern "C" __declspec(dllimport) 
 
+namespace SkyrimImguiInternal {
+    std::string key;
 
-extern "C" [[maybe_unused]] __declspec(dllimport) ImGuiContext* GetContext();
+    EXTERNAL_FUNCTION void AddSection(const char* menu, std::function<void()> const& rendererFunction);
 
+    EXTERNAL_FUNCTION ImGuiContext* GetContext();
+}
+namespace SkyrimImgui{
 
-void Init() {
-    ImGui::SetCurrentContext(GetContext());
+    void AddSection(std::string menu, std::function<void()> const& rendererFunction) {
+        SkyrimImguiInternal::AddSection((SkyrimImguiInternal::key + "/" + menu).c_str(), rendererFunction);
+    }
+
+    void Init(std::string key) {
+        SkyrimImguiInternal::key = key;
+        ImGui::SetCurrentContext(SkyrimImguiInternal::GetContext());
+    }
 }

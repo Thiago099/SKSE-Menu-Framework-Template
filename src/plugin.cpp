@@ -5,11 +5,12 @@
 void OnMessage(SKSE::MessagingInterface::Message* message) {
     if (message->type == SKSE::MessagingInterface::kDataLoaded) {
         // Start
-        logger::info("hello world");
-        Init();
-        AddRenderer("test", []() { 
-            ImGui::Text("Hello, from client program");
+        SkyrimImgui::Init("Another Dll");
+        SkyrimImgui::AddSection("screen4", []() { 
+            ImGui::Text("Screen 4 data");
         });
+        SkyrimImgui::AddSection("group1/screen5", []() { ImGui::Text("screen 5 data"); });
+        SkyrimImgui::AddSection("group1/screen6", []() { ImGui::Text("screen 6 data"); });
     }
     if (message->type == SKSE::MessagingInterface::kPostLoadGame) {
         // Post-load
