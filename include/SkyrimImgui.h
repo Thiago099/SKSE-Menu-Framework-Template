@@ -9,8 +9,13 @@ namespace SkyrimImguiInternal {
     EXTERNAL_FUNCTION void AddSection(const char* menu, std::function<void()> const& rendererFunction);
 
     EXTERNAL_FUNCTION ImGuiContext* GetContext();
+
+
 }
 namespace SkyrimImgui{
+
+    EXTERNAL_FUNCTION void AddWindow(const char* key, ImGuiWindowFlags flags,
+                                     std::function<void()> const& rendererFunction);
 
     void AddSection(std::string menu, std::function<void()> const& rendererFunction) {
         SkyrimImguiInternal::AddSection((SkyrimImguiInternal::key + "/" + menu).c_str(), rendererFunction);
