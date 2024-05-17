@@ -8,8 +8,8 @@ set(steam_mods_output true)
 # If you use CMake features from higher versions, update this to match.
 cmake_minimum_required(VERSION 3.21)
 # Set your project name. This will be the name of your SKSE .dll file.
-set(AUTHOR_NAME "YourName")
-set(PRODUCT_NAME "SkyrimImguiTemplate1")
+set(AUTHOR_NAME "AuthorName")
+set(PRODUCT_NAME "SKSEModHubTemplate")
 project(${PRODUCT_NAME} VERSION 0.1.0.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -90,12 +90,12 @@ install(TARGETS ${PROJECT_NAME}
 
 find_package(imgui CONFIG REQUIRED)
 target_link_libraries(${PRODUCT_NAME} PRIVATE imgui::imgui)
-add_library(SkyrimImgui SHARED IMPORTED GLOBAL)
-set_target_properties(SkyrimImgui PROPERTIES
-    IMPORTED_LOCATION "$ENV{SKYRIM_MODS_FOLDER}/SkyrimImgui/SKSE/Plugins/SkyrimImgui.dll"
-    IMPORTED_IMPLIB "$ENV{SKYRIM_MODS_FOLDER}/SkyrimImgui/SKSE/Plugins/SkyrimImgui.lib"
+add_library(SKSEModHub SHARED IMPORTED GLOBAL)
+set_target_properties(SKSEModHub PROPERTIES
+    IMPORTED_LOCATION "$ENV{SKYRIM_MODS_FOLDER}/SKSEModHub/SKSE/Plugins/SKSEModHub.dll"
+    IMPORTED_IMPLIB "$ENV{SKYRIM_MODS_FOLDER}/SKSEModHub/SKSE/Plugins/SKSEModHub.lib"
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE SkyrimImgui)
+target_link_libraries(${PROJECT_NAME} PRIVATE SKSEModHub)
 
 
 function(copyOutputs TARGET_FOLDER)
