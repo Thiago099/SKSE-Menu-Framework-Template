@@ -8,8 +8,7 @@ void UI::Register() {
     SKSEModHub::AddSection("Group 2/Example 6", Example3::Render);
 }
 
-void UI::Example1::Render() 
-{
+void __stdcall UI::Example1::Render() {
     // Do not create pointers inside the render code
     // It will not crash right away but it might crash at some point
     // If you create them outside and use here is safe
@@ -21,8 +20,7 @@ void UI::Example1::Render()
     ImGui::SliderFloat("float", Number, 0.0f, 1.0f);
 }
 
-void UI::Example2::Render() 
-{
+void __stdcall UI::Example2::Render() {
     // Do not create pointers inside the render code
     // It will not crash right away but it might crash at some point
     // If you create them outside and use here is safe
@@ -36,8 +34,7 @@ void UI::Example2::Render()
     ImGui::EndChild();
 }
 
-void UI::Example3::Render() 
-{
+void __stdcall UI::Example3::Render() {
     // Do not create pointers inside the render code
     // It will not crash right away but it might crash at some point
     // If you create them outside and use here is safe

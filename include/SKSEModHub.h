@@ -5,11 +5,11 @@
 
 namespace SKSEModHubInternal {
 
+    typedef void(__stdcall* RenderFunction)();
+
     inline std::string key;
 
-    inline ImGuiContext* ctx;
-
-    EXTERNAL_FUNCTION void AddSection(const char* path, std::function<void()> const& rendererFunction);
+    EXTERNAL_FUNCTION void AddSection(const char* path, SKSEModHubInternal::RenderFunction rendererFunction);
 
     EXTERNAL_FUNCTION void SetContextFetch(std::function<void(ImGuiContext*)> contextSetFunction);
 
@@ -17,9 +17,9 @@ namespace SKSEModHubInternal {
 namespace SKSEModHub{
      
     EXTERNAL_FUNCTION void AddWindow(const char* key, ImGuiWindowFlags flags,
-                                     std::function<void()> const& rendererFunction);
+                                     SKSEModHubInternal::RenderFunction rendererFunction);
 
-    inline void AddSection(std::string menu, std::function<void()> const& rendererFunction) {
+    inline void AddSection(std::string menu, SKSEModHubInternal::RenderFunction rendererFunction) {
         SKSEModHubInternal::AddSection((SKSEModHubInternal::key + "/" + menu).c_str(),
                                        rendererFunction);
     }
