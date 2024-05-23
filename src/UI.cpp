@@ -9,9 +9,6 @@ void UI::Register() {
 }
 
 void __stdcall UI::Example1::Render() {
-    // Do not create pointers inside the render code
-    // It will not crash right away but it might crash at some point
-    // If you create them outside and use here is safe
     ImGui::Text("Example text %d", 123);
     if (ImGui::Button("Log Hello World")) {
         logger::trace("hello world");
@@ -21,9 +18,6 @@ void __stdcall UI::Example1::Render() {
 }
 
 void __stdcall UI::Example2::Render() {
-    // Do not create pointers inside the render code
-    // It will not crash right away but it might crash at some point
-    // If you create them outside and use here is safe
     ImGui::ColorEdit4("Color", Color);
     float samples[100];
     for (int n = 0; n < 100; n++) samples[n] = sinf(n * 0.2f + ImGui::GetTime() * 1.5f);
@@ -35,9 +29,6 @@ void __stdcall UI::Example2::Render() {
 }
 
 void __stdcall UI::Example3::Render() {
-    // Do not create pointers inside the render code
-    // It will not crash right away but it might crash at some point
-    // If you create them outside and use here is safe
     static ImGuiTableFlags flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Hideable |
                                    ImGuiTableFlags_RowBg | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_BordersV |
                                    ImGuiTableFlags_NoBordersInBody | ImGuiTableFlags_ScrollY;
