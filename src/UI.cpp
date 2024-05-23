@@ -2,7 +2,7 @@
 
 void UI::Register() {
     Configuration::Example1::Buffer[0] = '\0';
-    SKSEModHub::Init("SKSE Mod Hub Template 2");
+    SKSEModHub::Init("SKSE Mod Hub Template");
     SKSEModHub::AddSection("Example 4", Example1::Render);
     SKSEModHub::AddSection("Group 2/Example 5", Example2::Render);
     SKSEModHub::AddSection("Group 2/Example 6", Example3::Render);
@@ -14,11 +14,11 @@ void __stdcall UI::Example1::Render() {
         logger::trace("hello world");
     }
     ImGui::InputText("string", Configuration::Example1::Buffer, 256);
-    ImGui::SliderFloat("float", Number, 0.0f, 1.0f);
+    ImGui::SliderFloat("float", &Configuration::Example1::Number, 0.0f, 1.0f);
 }
 
 void __stdcall UI::Example2::Render() {
-    ImGui::ColorEdit4("Color", Color);
+    ImGui::ColorEdit4("Color", &Configuration::Example2::Color);
     float samples[100];
     for (int n = 0; n < 100; n++) samples[n] = sinf(n * 0.2f + ImGui::GetTime() * 1.5f);
     ImGui::PlotLines("Samples", samples, 100);
@@ -27,7 +27,6 @@ void __stdcall UI::Example2::Render() {
     for (int n = 0; n < 50; n++) ImGui::Text("%04d: Some text", n);
     ImGui::EndChild();
 }
-
 void __stdcall UI::Example3::Render() {
     static ImGuiTableFlags flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Hideable |
                                    ImGuiTableFlags_RowBg | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_BordersV |

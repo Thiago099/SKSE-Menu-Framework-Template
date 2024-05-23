@@ -116,12 +116,15 @@ list(APPEND CMAKE_PREFIX_PATH ${ImGui_DIR})
 find_package(ImGui CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE ImGui::imgui)
 
-
-
 add_library(SKSEModHub SHARED IMPORTED GLOBAL)
 set_target_properties(SKSEModHub PROPERTIES
     IMPORTED_LOCATION "$ENV{SKYRIM_MODS_FOLDER}/SKSEModHub/SKSE/Plugins/SKSEModHub.dll"
     IMPORTED_IMPLIB "$ENV{SKYRIM_MODS_FOLDER}/SKSEModHub/SKSE/Plugins/SKSEModHub.lib"
+)
+target_include_directories(
+	${PROJECT_NAME}
+	PRIVATE
+    "$ENV{SKYRIM_MODS_FOLDER}/SKSEModHub/SKSE/Plugins/"
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE SKSEModHub)
 
