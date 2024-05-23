@@ -102,15 +102,20 @@ install(TARGETS ${PROJECT_NAME}
 
 
 
+
+set(ImGui_BASE_DIR "E:/www/skyrim/imgui")
+
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(ImGui_INSTALL_DIR "E:/www/skyrim/imgui/debug")
+    set(ImGui_INSTALL_DIR "${ImGui_BASE_DIR}/debug")
 else()
-    set(ImGui_INSTALL_DIR "E:/www/skyrim/imgui/release")
+    set(ImGui_INSTALL_DIR "${ImGui_BASE_DIR}/release")
 endif()
+
 set(ImGui_DIR "${ImGui_INSTALL_DIR}/lib/cmake")
 list(APPEND CMAKE_PREFIX_PATH ${ImGui_DIR})
 find_package(ImGui CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE ImGui::imgui)
+
 
 
 add_library(SKSEModHub SHARED IMPORTED GLOBAL)
