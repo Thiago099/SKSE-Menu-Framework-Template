@@ -1,5 +1,5 @@
 #pragma once
-#include <imgui.h>
+#include <imgui/imgui.h>
 
 #define EXTERNAL_FUNCTION extern "C" __declspec(dllimport) 
 
@@ -10,9 +10,6 @@ namespace SKSEModHubInternal {
     inline std::string key;
 
     EXTERNAL_FUNCTION void AddSection(const char* path, SKSEModHubInternal::RenderFunction rendererFunction);
-
-    EXTERNAL_FUNCTION void SetContextFetch(std::function<void(ImGuiContext*)> contextSetFunction);
-
 }
 namespace SKSEModHub{
      
@@ -26,8 +23,5 @@ namespace SKSEModHub{
 
     inline void Init(std::string key) {
         SKSEModHubInternal::key = key;
-        SKSEModHubInternal::SetContextFetch([](ImGuiContext* ctx) {
-            ImGui::SetCurrentContext(ctx);
-        });
     }
 }
