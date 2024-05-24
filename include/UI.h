@@ -6,9 +6,10 @@ namespace UI {
     void Register();
     namespace Example1 {
         static void __stdcall Render();
+        static void Render();
     }
-    namespace Example2 {
         static void __stdcall Render();
+        static void Render();
     }
     namespace Example3 {
         static void __stdcall Render();
