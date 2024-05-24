@@ -1,24 +1,26 @@
 #include "UI.h"
 
 void UI::Register() {
-    Configuration::Example1::Buffer[0] = '\0';
+    Configuration::Example2::Buffer[0] = '\0';
     SKSEModHub::Init("SKSE Mod Hub Template 2");
-    SKSEModHub::AddSection("Example 4", Example1::Render);
-    SKSEModHub::AddSection("Group 2/Example 5", Example2::Render);
-    SKSEModHub::AddSection("Group 2/Example 6", Example3::Render);
+    SKSEModHub::AddSection("Cheese Menu", Example1::Render);
+    SKSEModHub::AddSection("Examples/Example 1", Example2::Render);
+    SKSEModHub::AddSection("Examples/Example 2", Example3::Render);
 }
 
 void __stdcall UI::Example1::Render() {
-    ImGui::Text("Example text %d", 123);
-    if (ImGui::Button("Log Hello World")) {
-        logger::trace("hello world");
+    ImGui::Text("How much cheese would you like to add? Currently: %d", Configuration::Example1::Number);
+    ImGui::SliderInt("number", &Configuration::Example1::Number, 1, 100);
+    if (ImGui::Button("Add")) {
+        auto player = RE::PlayerCharacter::GetSingleton()->As<RE::TESObjectREFR>();
+        auto cheese = RE::TESForm::LookupByID(0x64B33)->As<RE::TESBoundObject>();
+        player->AddObjectToContainer(cheese, nullptr, Configuration::Example1::Number, nullptr);
     }
-    ImGui::InputText("string", Configuration::Example1::Buffer, 256);
-    ImGui::SliderFloat("float", Number, 0.0f, 1.0f);
 }
 
 void __stdcall UI::Example2::Render() {
-    ImGui::ColorEdit4("Color", Color);
+    ImGui::InputText("string", Configuration::Example2::Buffer, 256);
+    ImGui::ColorEdit4("Color", &Configuration::Example2::Color);
     float samples[100];
     for (int n = 0; n < 100; n++) samples[n] = sinf(n * 0.2f + ImGui::GetTime() * 1.5f);
     ImGui::PlotLines("Samples", samples, 100);
