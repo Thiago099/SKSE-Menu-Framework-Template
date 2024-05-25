@@ -2,6 +2,7 @@
 
 void OnMessage(SKSE::MessagingInterface::Message* message) {
     if (message->type == SKSE::MessagingInterface::kDataLoaded) {
+        UI::Example2::ExampleWindow->IsOpen = true;
         // Start
     }
     if (message->type == SKSE::MessagingInterface::kPostLoadGame) {
