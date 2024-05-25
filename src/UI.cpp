@@ -6,6 +6,12 @@ void UI::Register() {
     SKSEModHub::AddSection("Add Cheese", Example1::Render);
     SKSEModHub::AddSection("Examples/Example 1", Example2::Render);
     SKSEModHub::AddSection("Examples/Example 2", Example3::Render);
+
+
+    auto controls = SKSEModHub::AddWindow(Example2::RenderWindow);
+
+    controls->IsOpen = true;
+
 }
 
 void __stdcall UI::Example1::Render() {
@@ -28,6 +34,27 @@ void __stdcall UI::Example2::Render() {
     ImGui::BeginChild("Scrolling");
     for (int n = 0; n < 50; n++) ImGui::Text("%04d: Some text", n);
     ImGui::EndChild();
+}
+
+void __stdcall UI::Example2::RenderWindow(SKSEModHub::Model::WindowInterface* interface) {
+    auto viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(viewport->GetCenter(), ImGuiCond_Appearing, ImVec2{0.5f, 0.5f});
+    ImGui::SetNextWindowSize(ImVec2{viewport->Size.x * 0.8f, viewport->Size.y * 0.8f}, ImGuiCond_Appearing);
+    ImGui::Begin("My First Tool",nullptr, ImGuiWindowFlags_MenuBar);
+    if (ImGui::BeginMenuBar()) {
+        if (ImGui::BeginMenu("File")) {
+            if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */
+            }
+            if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Do stuff */
+            }
+            if (ImGui::MenuItem("Close", "Ctrl+W")) {
+                interface->IsOpen = false;
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMenuBar();
+    }
+    ImGui::End();
 }
 
 void __stdcall UI::Example3::Render() {

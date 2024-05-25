@@ -9,6 +9,7 @@ namespace UI {
     }
     namespace Example2{
         static void __stdcall Render();
+        static void __stdcall RenderWindow(SKSEModHub::Model::WindowInterface* interface);
     }
     namespace Example3 {
         static void __stdcall Render();
