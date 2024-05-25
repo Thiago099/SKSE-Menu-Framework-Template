@@ -2,16 +2,11 @@
 
 void UI::Register() {
     Configuration::Example2::Buffer[0] = '\0';
-    SKSEModHub::Init("SKSE Mod Hub Template 1");
-    SKSEModHub::AddSection("Add Cheese", Example1::Render);
-    SKSEModHub::AddSection("Examples/Example 1", Example2::Render);
-    SKSEModHub::AddSection("Examples/Example 2", Example3::Render);
-
-
-    auto controls = SKSEModHub::AddWindow(Example2::RenderWindow);
-
-    controls->IsOpen = true;
-
+    SKSEMenuFramework::Init("SKSE Mod Hub Template 1");
+    SKSEMenuFramework::AddSection("Add Cheese", Example1::Render);
+    SKSEMenuFramework::AddSection("Folder/Example 1", Example2::Render);
+    UI::Example2::ExampleWindow = SKSEMenuFramework::AddWindow(Example2::RenderWindow);
+    SKSEMenuFramework::AddSection("Folder/Example 2", Example3::Render);
 }
 
 void __stdcall UI::Example1::Render() {
@@ -25,6 +20,10 @@ void __stdcall UI::Example1::Render() {
 }
 
 void __stdcall UI::Example2::Render() {
+    if (ImGui::Button("Open Window")) {
+        ExampleWindow->IsOpen = true;
+    }
+
     ImGui::InputText("string", Configuration::Example2::Buffer, 256);
     ImGui::ColorEdit4("Color", &Configuration::Example2::Color);
     float samples[100];
@@ -36,10 +35,10 @@ void __stdcall UI::Example2::Render() {
     ImGui::EndChild();
 }
 
-void __stdcall UI::Example2::RenderWindow(SKSEModHub::Model::WindowInterface* interface) {
+void __stdcall UI::Example2::RenderWindow(MENU_WINDOW window) {
     auto viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->GetCenter(), ImGuiCond_Appearing, ImVec2{0.5f, 0.5f});
-    ImGui::SetNextWindowSize(ImVec2{viewport->Size.x * 0.8f, viewport->Size.y * 0.8f}, ImGuiCond_Appearing);
+    ImGui::SetNextWindowSize(ImVec2{viewport->Size.x * 0.4f, viewport->Size.y * 0.4f}, ImGuiCond_Appearing);
     ImGui::Begin("My First Tool",nullptr, ImGuiWindowFlags_MenuBar);
     if (ImGui::BeginMenuBar()) {
         if (ImGui::BeginMenu("File")) {
@@ -48,11 +47,14 @@ void __stdcall UI::Example2::RenderWindow(SKSEModHub::Model::WindowInterface* in
             if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Do stuff */
             }
             if (ImGui::MenuItem("Close", "Ctrl+W")) {
-                interface->IsOpen = false;
+                window->IsOpen = false;
             }
             ImGui::EndMenu();
         }
         ImGui::EndMenuBar();
+    }
+    if (ImGui::Button("Close Window")) {
+        window->IsOpen = false;
     }
     ImGui::End();
 }

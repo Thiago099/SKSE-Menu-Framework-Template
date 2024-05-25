@@ -1,17 +1,18 @@
 #pragma once
-#include "SKSEModHub.h"
+#include "SKSEMenuFramework.h"
 #include <imgui/imgui.h>
 #include "Configuration.h"
 namespace UI {
     void Register();
     namespace Example1 {
-        static void __stdcall Render();
+        void __stdcall Render();
     }
     namespace Example2{
-        static void __stdcall Render();
-        static void __stdcall RenderWindow(SKSEModHub::Model::WindowInterface* interface);
+        void __stdcall Render();
+        void __stdcall RenderWindow(MENU_WINDOW interface);
+        inline MENU_WINDOW ExampleWindow;
     }
     namespace Example3 {
-        static void __stdcall Render();
+        void __stdcall Render();
     }
 };

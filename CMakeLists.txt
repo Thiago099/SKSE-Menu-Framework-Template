@@ -9,7 +9,7 @@ set(steam_mods_output true)
 cmake_minimum_required(VERSION 3.21)
 # Set your project name. This will be the name of your SKSE .dll file.
 set(AUTHOR_NAME "AuthorName")
-set(PRODUCT_NAME "SKSEModHubTemplate")
+set(PRODUCT_NAME "SKSEMenuFrameworkTemplate")
 project(${PRODUCT_NAME} VERSION 0.1.0.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -115,14 +115,14 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ImGui::imgui)
 
 add_library(SKSEModHub SHARED IMPORTED GLOBAL)
 set_target_properties(SKSEModHub PROPERTIES
-    IMPORTED_LOCATION "$ENV{SKYRIM_MODS_FOLDER}/SKSEModHub/SKSE/Plugins/SKSEModHub.dll"
-    IMPORTED_IMPLIB "$ENV{SKYRIM_MODS_FOLDER}/SKSEModHub/SKSE/Plugins/SKSEModHub.lib"
+    IMPORTED_LOCATION "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework/SKSE/Plugins/SKSEMenuFramework.dll"
+    IMPORTED_IMPLIB "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework/SKSE/Plugins/SKSEMenuFramework.lib"
 )
 
 target_include_directories(
 	${PROJECT_NAME}
 	PRIVATE
-    "$ENV{SKYRIM_MODS_FOLDER}/SKSEModHub/SKSE/Plugins/"
+    "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework/SKSE/Plugins/"
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE SKSEModHub)
