@@ -2,7 +2,7 @@
 
 void UI::Register() {
     Configuration::Example2::Buffer[0] = '\0';
-    SKSEModHub::Init("SKSE Mod Hub Template 2");
+    SKSEModHub::Init("SKSE Mod Hub Template 1");
     SKSEModHub::AddSection("Add Cheese", Example1::Render);
     SKSEModHub::AddSection("Examples/Example 1", Example2::Render);
     SKSEModHub::AddSection("Examples/Example 2", Example3::Render);
