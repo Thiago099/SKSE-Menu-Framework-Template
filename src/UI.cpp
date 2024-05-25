@@ -2,11 +2,11 @@
 
 void UI::Register() {
     Configuration::Example2::Buffer[0] = '\0';
-    SKSEMenuFramework::Init("SKSE Mod Hub Template 1");
-    SKSEMenuFramework::AddSection("Add Cheese", Example1::Render);
-    SKSEMenuFramework::AddSection("Folder/Example 1", Example2::Render);
+    SKSEMenuFramework::SetSection("Mod Control Panel Item 1");
+    SKSEMenuFramework::AddSectionItem("Add Cheese", Example1::Render);
+    SKSEMenuFramework::AddSectionItem("Folder/Example 1", Example2::Render);
     UI::Example2::ExampleWindow = SKSEMenuFramework::AddWindow(Example2::RenderWindow);
-    SKSEMenuFramework::AddSection("Folder/Example 2", Example3::Render);
+    SKSEMenuFramework::AddSectionItem("Folder/Example 2", Example3::Render);
 }
 
 void __stdcall UI::Example1::Render() {
