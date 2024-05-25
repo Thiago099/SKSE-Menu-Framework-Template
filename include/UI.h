@@ -9,7 +9,7 @@ namespace UI {
     }
     namespace Example2{
         void __stdcall Render();
-        void __stdcall RenderWindow(MENU_WINDOW interface);
+        void __stdcall RenderWindow();
         inline MENU_WINDOW ExampleWindow;
     }
     namespace Example3 {

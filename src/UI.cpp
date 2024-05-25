@@ -35,7 +35,7 @@ void __stdcall UI::Example2::Render() {
     ImGui::EndChild();
 }
 
-void __stdcall UI::Example2::RenderWindow(MENU_WINDOW window) {
+void __stdcall UI::Example2::RenderWindow() {
     auto viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->GetCenter(), ImGuiCond_Appearing, ImVec2{0.5f, 0.5f});
     ImGui::SetNextWindowSize(ImVec2{viewport->Size.x * 0.4f, viewport->Size.y * 0.4f}, ImGuiCond_Appearing);
@@ -47,14 +47,14 @@ void __stdcall UI::Example2::RenderWindow(MENU_WINDOW window) {
             if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Do stuff */
             }
             if (ImGui::MenuItem("Close", "Ctrl+W")) {
-                window->IsOpen = false;
+                ExampleWindow->IsOpen = false;
             }
             ImGui::EndMenu();
         }
         ImGui::EndMenuBar();
     }
     if (ImGui::Button("Close Window")) {
-        window->IsOpen = false;
+        ExampleWindow->IsOpen = false;
     }
     ImGui::End();
 }
