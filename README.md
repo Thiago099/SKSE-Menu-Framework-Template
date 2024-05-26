@@ -12,7 +12,7 @@
 
  The skyrim mods folder is required to find the Menu framework library
   
-## Ouput folder optional variables
+## Optional ouput folder optional variables
 
 - SKYRIM_FOLDER
 - WILDLANDER_OWRT_FOLDER
