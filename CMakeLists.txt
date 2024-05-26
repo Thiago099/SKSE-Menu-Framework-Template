@@ -7,7 +7,7 @@ if(NOT DEFINED ENV{IMGUI_LIB_FOLDER})
   message(FATAL_ERROR "Missing IMGUI_LIB_FOLDER environment variable")
 endif()
 
-if(NOT DEFINED ENV{IMGUI_LIB_FOLDER})
+if(NOT DEFINED ENV{SKYRIM_MODS_FOLDER})
   message(FATAL_ERROR "Missing SKYRIM_MODS_FOLDER environment variable")
 endif()
 
