@@ -33,7 +33,7 @@ void __stdcall UI::Example1::Render() {
             player->AddObjectToContainer(AddBoundObject, nullptr, Configuration::Example1::Number, nullptr);
         }
     } else {
-        ImGui::Text("Form found");
+        ImGui::Text("Form not found");
     }
 }
 
