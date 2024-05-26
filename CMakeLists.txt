@@ -1,3 +1,13 @@
+
+if(NOT DEFINED ENV{COMMONLIB_SSE_FOLDER})
+  message(FATAL_ERROR "Missing COMMONLIB_SSE_FOLDER environment variable")
+endif()
+
+if(NOT DEFINED ENV{IMGUI_LIB_FOLDER})
+  message(FATAL_ERROR "Missing IMGUI_LIB_FOLDER environment variable")
+endif()
+
+
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 set(wildlander_output false)
@@ -90,8 +100,11 @@ include(cmake/sourcelist.cmake)
 install(TARGETS ${PROJECT_NAME}
         DESTINATION "${CMAKE_INSTALL_LIBDIR}")
 
-
-set(SKSE_MENU_FRAMEWORK_BASE_DIR "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(SKSE_MENU_FRAMEWORK_BASE_DIR "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFrameworkDEV")
+else()
+    set(SKSE_MENU_FRAMEWORK_BASE_DIR "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework")
+endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(ImGui_INSTALL_DIR "$ENV{IMGUI_LIB_FOLDER}/debug")
