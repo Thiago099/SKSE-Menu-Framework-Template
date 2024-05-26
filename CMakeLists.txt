@@ -7,6 +7,10 @@ if(NOT DEFINED ENV{IMGUI_LIB_FOLDER})
   message(FATAL_ERROR "Missing IMGUI_LIB_FOLDER environment variable")
 endif()
 
+if(NOT DEFINED ENV{IMGUI_LIB_FOLDER})
+  message(FATAL_ERROR "Missing SKYRIM_MODS_FOLDER environment variable")
+endif()
+
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
@@ -20,6 +24,8 @@ cmake_minimum_required(VERSION 3.21)
 # Set your project name. This will be the name of your SKSE .dll file.
 set(AUTHOR_NAME "AuthorName")
 set(PRODUCT_NAME "SKSEMenuFrameworkTemplate")
+set(BEAUTIFUL_NAME "SKSE Menu Framework Template")
+
 project(${PRODUCT_NAME} VERSION 0.1.0.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -103,38 +109,43 @@ install(TARGETS ${PROJECT_NAME}
 
 
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(ImGui_INSTALL_DIR "$ENV{IMGUI_LIB_FOLDER}/debug")
-else()
-    set(ImGui_INSTALL_DIR "$ENV{IMGUI_LIB_FOLDER}/release")
-endif()
+function(addMenuFramework MENU_FRAMEWORK_FOLDER IMGUI_FOLDER)
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(PROJECT_SUFFIX "DEV")
-else()
-    set(PROJECT_SUFFIX "")
-endif()
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        set(IMGUI_INSTALL_DIR "${IMGUI_FOLDER}/debug")
+    else()
+        set(IMGUI_INSTALL_DIR "${IMGUI_FOLDER}/release")
+    endif()
+
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        set(PROJECT_SUFFIX " DEV")
+    else()
+        set(PROJECT_SUFFIX "")
+    endif()
 
 
-set(ImGui_DIR "${ImGui_INSTALL_DIR}/lib/cmake")
-list(APPEND CMAKE_PREFIX_PATH ${ImGui_DIR})
-find_package(ImGui CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE ImGui::imgui)
+    set(ImGui_DIR "${IMGUI_INSTALL_DIR}/lib/cmake")
+    list(APPEND CMAKE_PREFIX_PATH ${ImGui_DIR})
+    find_package(ImGui CONFIG REQUIRED)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ImGui::imgui)
 
-add_library(SKSEMenuFramework SHARED IMPORTED GLOBAL)
-set_target_properties(SKSEMenuFramework PROPERTIES
-    IMPORTED_LOCATION "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework${PROJECT_SUFFIX}/SKSE/Plugins/SKSEMenuFramework.dll"
-    IMPORTED_IMPLIB "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework${PROJECT_SUFFIX}/SKSE/Plugins/SKSEMenuFramework.lib"
-)
+    add_library(SKSEMenuFramework SHARED IMPORTED GLOBAL)
+    set_target_properties(SKSEMenuFramework PROPERTIES
+        IMPORTED_LOCATION "${MENU_FRAMEWORK_FOLDER}/SKSE Menu Framework${PROJECT_SUFFIX}/SKSE/Plugins/SKSEMenuFramework.dll"
+        IMPORTED_IMPLIB "${MENU_FRAMEWORK_FOLDER}/SKSE Menu Framework${PROJECT_SUFFIX}/SKSE/Plugins/SKSEMenuFramework.lib"
+    )
 
-target_include_directories(
-	${PROJECT_NAME}
-	PRIVATE
-    "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework/SKSE/Plugins/"
-)
+    target_include_directories(
+	    ${PROJECT_NAME}
+	    PRIVATE
+        "${MENU_FRAMEWORK_FOLDER}/SKSE Menu Framework DEV/SKSE/Plugins"
+    )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE SKSEMenuFramework)
+    target_link_libraries(${PROJECT_NAME} PRIVATE SKSEMenuFramework)
 
+endfunction()
+
+addMenuFramework("$ENV{SKYRIM_MODS_FOLDER}" "$ENV{IMGUI_LIB_FOLDER}")
 
 function(copyOutputs TARGET_FOLDER)
     # If you specify an <OUTPUT_FOLDER> (including via environment variables)
@@ -169,14 +180,14 @@ if(DEFINED ENV{SKYRIM_FOLDER} AND IS_DIRECTORY "$ENV{SKYRIM_FOLDER}/Data")
     copyOutputs("$ENV{SKYRIM_FOLDER}/Data")
 endif()
 if(DEFINED ENV{WILDLANDER_OWRT_FOLDER} AND IS_DIRECTORY "$ENV{WILDLANDER_OWRT_FOLDER}" AND wildlander_output)
-    copyOutputs("$ENV{WILDLANDER_OWRT_FOLDER}/${PROJECT_NAME}")
+    copyOutputs("$ENV{WILDLANDER_OWRT_FOLDER}/${BEAUTIFUL_NAME}")
 endif()
 if(DEFINED ENV{SKYRIM_OWRT_FOLDER} AND IS_DIRECTORY "$ENV{SKYRIM_OWRT_FOLDER}" AND steam_owrt_output)
-    copyOutputs("$ENV{SKYRIM_OWRT_FOLDER}/${PROJECT_NAME}")
+    copyOutputs("$ENV{SKYRIM_OWRT_FOLDER}/${BEAUTIFUL_NAME}")
 endif()
 if(DEFINED ENV{SKYRIM_MODS_FOLDER} AND IS_DIRECTORY "$ENV{SKYRIM_MODS_FOLDER}" AND steam_mods_output)
-    copyOutputs("$ENV{SKYRIM_MODS_FOLDER}/${PROJECT_NAME}")
+    copyOutputs("$ENV{SKYRIM_MODS_FOLDER}/${BEAUTIFUL_NAME}")
 endif()
 if(DEFINED ENV{SKYRIM_MODS_FOLDER2} AND IS_DIRECTORY "$ENV{SKYRIM_MODS_FOLDER2}" AND steam_mods_output)
-    copyOutputs("$ENV{SKYRIM_MODS_FOLDER2}/${PROJECT_NAME}")
+    copyOutputs("$ENV{SKYRIM_MODS_FOLDER2}/${BEAUTIFUL_NAME}")
 endif()
