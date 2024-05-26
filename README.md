@@ -6,7 +6,7 @@
 
 - IMGUI_LIB_FOLDER
 
-  Clone [this](https://github.com/Thiago099/SharedImguiBuild)  Repository, to somewhere safe and adds its path to this environment variable on Windows.
+  Clone [this](https://github.com/Thiago099/SKSE-Menu-Framework-SDK/tree/main)  Repository, to somewhere safe and adds its ImGui folder path to this environment variable on Windows.
 
 ## Ouput folder optional variables
 
