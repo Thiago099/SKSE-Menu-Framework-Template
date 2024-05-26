@@ -17,7 +17,7 @@
 - SKYRIM_MODS_FOLDER2
 
 ## How do I set up environment variables?
-Press Windows + R and enter `SystemPropertiesAdvanced.exe`
+Press `Windows + R` and enter `SystemPropertiesAdvanced.exe`
 
 ![image](https://github.com/Thiago099/SKSEMenuFrameworkTemplate/assets/66787043/16f55822-c3c1-4a1d-a305-5ea28e65634c)
 
