@@ -8,6 +8,10 @@
 
   Clone [this](https://github.com/Thiago099/SKSE-Menu-Framework-SDK/tree/main)  Repository, to somewhere safe and adds its ImGui folder path to this environment variable on Windows.
 
+- SKYRIM_MODS_FOLDER
+
+ The skyrim mods folder is required to find the Menu framework library
+  
 ## Ouput folder optional variables
 
 - SKYRIM_FOLDER
