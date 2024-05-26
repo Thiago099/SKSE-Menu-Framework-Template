@@ -100,11 +100,8 @@ include(cmake/sourcelist.cmake)
 install(TARGETS ${PROJECT_NAME}
         DESTINATION "${CMAKE_INSTALL_LIBDIR}")
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(SKSE_MENU_FRAMEWORK_BASE_DIR "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFrameworkDEV")
-else()
-    set(SKSE_MENU_FRAMEWORK_BASE_DIR "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework")
-endif()
+
+
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(ImGui_INSTALL_DIR "$ENV{IMGUI_LIB_FOLDER}/debug")
@@ -112,6 +109,11 @@ else()
     set(ImGui_INSTALL_DIR "$ENV{IMGUI_LIB_FOLDER}/release")
 endif()
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(PROJECT_SUFFIX "DEV")
+else()
+    set(PROJECT_SUFFIX "")
+endif()
 
 
 set(ImGui_DIR "${ImGui_INSTALL_DIR}/lib/cmake")
@@ -121,8 +123,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ImGui::imgui)
 
 add_library(SKSEMenuFramework SHARED IMPORTED GLOBAL)
 set_target_properties(SKSEMenuFramework PROPERTIES
-    IMPORTED_LOCATION "${SKSE_MENU_FRAMEWORK_BASE_DIR}/SKSE/Plugins/SKSEMenuFramework.dll"
-    IMPORTED_IMPLIB "${SKSE_MENU_FRAMEWORK_BASE_DIR}/SKSE/Plugins/SKSEMenuFramework.lib"
+    IMPORTED_LOCATION "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework${PROJECT_SUFFIX}/SKSE/Plugins/SKSEMenuFramework.dll"
+    IMPORTED_IMPLIB "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework${PROJECT_SUFFIX}/SKSE/Plugins/SKSEMenuFramework.lib"
 )
 
 target_include_directories(
