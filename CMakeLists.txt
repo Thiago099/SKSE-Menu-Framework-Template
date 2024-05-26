@@ -46,8 +46,10 @@ set(ENABLE_SKYRIM_VR ON CACHE BOOL " " FORCE)
 set(BUILD_TESTS OFF CACHE BOOL " " FORCE)
 
 #FetchContent_MakeAvailable(CommonLibNG)
-add_subdirectory("$ENV{CLIBNG_ROOT}" ${CMAKE_CURRENT_BINARY_DIR}/_deps/clib-build)
-get_target_property(commonlib_src_dir CommonLibSSE SOURCE_DIR)
+
+
+add_subdirectory("$ENV{COMMONLIB_SSE_FOLDER}" ${CMAKE_CURRENT_BINARY_DIR}/_deps/clib-build)
+get_target_property(COMMONLIB_SRC_DIR CommonLibSSE SOURCE_DIR)
 
 # CLIB-UTIL
 find_path(CLIB_UTIL_INCLUDE_DIRS "ClibUtil/utils.hpp")
@@ -65,7 +67,7 @@ source_group(
 )
 
 set(BUILD_TESTS OFF)
-include(${commonlib_src_dir}/cmake/CommonLibSSE.cmake)
+include(${COMMONLIB_SRC_DIR}/cmake/CommonLibSSE.cmake)
 
 add_commonlibsse_plugin(
   ${PROJECT_NAME}
@@ -88,35 +90,26 @@ include(cmake/sourcelist.cmake)
 install(TARGETS ${PROJECT_NAME}
         DESTINATION "${CMAKE_INSTALL_LIBDIR}")
 
-#if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-#set_property(TARGET ${PRODUCT_NAME} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDebugDLL")
-#else()
-#set_property(TARGET ${PRODUCT_NAME} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
-#endif()
-#foreach(target ${PRODUCT_NAME} ${PROJECT_NAME})
-#    if(TARGET ${target})
-#        set_target_properties(${target} PROPERTIES
-#            MSVC_RUNTIME_LIBRARY ${CMAKE_MSVC_RUNTIME_LIBRARY})
-#    endif()
-#endforeach()
 
-set(ImGui_BASE_DIR "E:/www/skyrim/imgui")
+set(SKSE_MENU_FRAMEWORK_BASE_DIR "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(ImGui_INSTALL_DIR "${ImGui_BASE_DIR}/debug")
+    set(ImGui_INSTALL_DIR "$ENV{IMGUI_LIB_FOLDER}/debug")
 else()
-    set(ImGui_INSTALL_DIR "${ImGui_BASE_DIR}/release")
+    set(ImGui_INSTALL_DIR "$ENV{IMGUI_LIB_FOLDER}/release")
 endif()
+
+
 
 set(ImGui_DIR "${ImGui_INSTALL_DIR}/lib/cmake")
 list(APPEND CMAKE_PREFIX_PATH ${ImGui_DIR})
 find_package(ImGui CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE ImGui::imgui)
 
-add_library(SKSEModHub SHARED IMPORTED GLOBAL)
-set_target_properties(SKSEModHub PROPERTIES
-    IMPORTED_LOCATION "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework/SKSE/Plugins/SKSEMenuFramework.dll"
-    IMPORTED_IMPLIB "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework/SKSE/Plugins/SKSEMenuFramework.lib"
+add_library(SKSEMenuFramework SHARED IMPORTED GLOBAL)
+set_target_properties(SKSEMenuFramework PROPERTIES
+    IMPORTED_LOCATION "${SKSE_MENU_FRAMEWORK_BASE_DIR}/SKSE/Plugins/SKSEMenuFramework.dll"
+    IMPORTED_IMPLIB "${SKSE_MENU_FRAMEWORK_BASE_DIR}/SKSE/Plugins/SKSEMenuFramework.lib"
 )
 
 target_include_directories(
@@ -125,7 +118,7 @@ target_include_directories(
     "$ENV{SKYRIM_MODS_FOLDER}/SKSEMenuFramework/SKSE/Plugins/"
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE SKSEModHub)
+target_link_libraries(${PROJECT_NAME} PRIVATE SKSEMenuFramework)
 
 
 function(copyOutputs TARGET_FOLDER)
