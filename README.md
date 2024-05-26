@@ -10,7 +10,7 @@
 
 - SKYRIM_MODS_FOLDER
 
- The skyrim mods folder is required to find the Menu framework library
+   The skyrim mods folder is required to find the Menu framework library
   
 ## Optional ouput folder optional variables
 
