@@ -8,7 +8,7 @@
 
   Clone [this](https://github.com/Thiago099/SharedImguiBuild)  Repository, to somewhere safe and adds its path to this environment variable on Windows.
 
-## Ouput folder variables
+## Ouput folder optional variables
 
 - SKYRIM_FOLDER
 - WILDLANDER_OWRT_FOLDER
