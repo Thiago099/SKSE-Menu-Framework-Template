@@ -2,7 +2,7 @@
 
 void UI::Register() {
     Configuration::Example2::Buffer[0] = '\0';
-    SKSEMenuFramework::SetSection("Mod Control Panel Item 1");
+    SKSEMenuFramework::SetSection("Menu Entiry From Mod 1");
     SKSEMenuFramework::AddSectionItem("Add Cheese", Example1::Render);
     SKSEMenuFramework::AddSectionItem("Folder/Example 1", Example2::Render);
     UI::Example2::ExampleWindow = SKSEMenuFramework::AddWindow(Example2::RenderWindow);
