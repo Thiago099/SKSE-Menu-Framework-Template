@@ -14,16 +14,18 @@ You can either set them as system or user variables.
 
 ### Required variables
 
-COMMONLIB_SSE_FOLDER
-clone [this](https://github.com/CharmedBaryon/CommonLibSSE-NG) rrepository, to somewhere safe and adds its path to this envioriment variable on windows
+- COMMONLIB_SSE_FOLDER
 
-IMGUI_LIB_FOLDER
-Clone [this](https://github.com/Thiago099/SharedImguiBuild) repository, to somewhere safe and adds its path to this envioriment variable on windows
+  Clone [this](https://github.com/CharmedBaryon/CommonLibSSE-NG) Repository, to somewhere safe and adds its path to this environment variable on Windows.
+
+- IMGUI_LIB_FOLDER
+
+  Clone [this](https://github.com/Thiago099/SharedImguiBuild)  Repository, to somewhere safe and adds its path to this environment variable on Windows.
 
 ## Ouput folder variables
 
-SKYRIM_FOLDER
-WILDLANDER_OWRT_FOLDER
-SKYRIM_OWRT_FOLDER
-SKYRIM_MODS_FOLDER
-SKYRIM_MODS_FOLDER2
+- SKYRIM_FOLDER
+- WILDLANDER_OWRT_FOLDER
+- SKYRIM_OWRT_FOLDER
+- SKYRIM_MODS_FOLDER
+- SKYRIM_MODS_FOLDER2
