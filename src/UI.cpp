@@ -39,7 +39,8 @@ void __stdcall UI::Example2::RenderWindow() {
     auto viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->GetCenter(), ImGuiCond_Appearing, ImVec2{0.5f, 0.5f});
     ImGui::SetNextWindowSize(ImVec2{viewport->Size.x * 0.4f, viewport->Size.y * 0.4f}, ImGuiCond_Appearing);
-    ImGui::Begin("My First Tool",nullptr, ImGuiWindowFlags_MenuBar);
+    ImGui::Begin("My First Tool##MenuEntiryFromMod1",nullptr, ImGuiWindowFlags_MenuBar); // If two mods have the same window name, and they open at the same time.
+                                                                                         // The window content will be merged, is good practice to add ##ModName after the window name.
     if (ImGui::BeginMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */
