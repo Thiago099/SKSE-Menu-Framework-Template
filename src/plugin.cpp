@@ -3,10 +3,9 @@
 void OnMessage(SKSE::MessagingInterface::Message* message) {
     if (message->type == SKSE::MessagingInterface::kDataLoaded) {
         UI::Example2::ExampleWindow->IsOpen = true;
-        // Start
+        UI::Example1::LookupForm();
     }
     if (message->type == SKSE::MessagingInterface::kPostLoadGame) {
-        // Post-load
     }
 }
 

@@ -2,20 +2,38 @@
 
 void UI::Register() {
     Configuration::Example2::Buffer[0] = '\0';
-    SKSEMenuFramework::SetSection("Menu Entiry From Mod 1");
-    SKSEMenuFramework::AddSectionItem("Add Cheese", Example1::Render);
-    SKSEMenuFramework::AddSectionItem("Folder/Example 1", Example2::Render);
+    SKSEMenuFramework::SetSection("Menu Entiry From Mod");
+    SKSEMenuFramework::AddSectionItem("Add Item", Example1::Render);
+    SKSEMenuFramework::AddSectionItem("Folder Example/Example 1", Example2::Render);
     UI::Example2::ExampleWindow = SKSEMenuFramework::AddWindow(Example2::RenderWindow);
-    SKSEMenuFramework::AddSectionItem("Folder/Example 2", Example3::Render);
+    SKSEMenuFramework::AddSectionItem("Folder Example/Example 2", Example3::Render);
+}
+
+void UI::Example1::LookupForm() {
+    auto addForm = RE::TESForm::LookupByID(AddFormId);
+    if (addForm) {
+        AddBoundObject = addForm->As<RE::TESBoundObject>();
+    } else {
+        AddBoundObject = nullptr;
+    }
 }
 
 void __stdcall UI::Example1::Render() {
-    ImGui::Text("How much cheese would you like to add? Currently: %d", Configuration::Example1::Number);
-    ImGui::SliderInt("number", &Configuration::Example1::Number, 1, 100);
-    if (ImGui::Button("Add")) {
-        auto player = RE::PlayerCharacter::GetSingleton()->As<RE::TESObjectREFR>();
-        auto cheese = RE::TESForm::LookupByID(0x64B33)->As<RE::TESBoundObject>();
-        player->AddObjectToContainer(cheese, nullptr, Configuration::Example1::Number, nullptr);
+    ImGui::InputScalar("form id", ImGuiDataType_U32, &AddFormId, NULL, NULL, "%08X");
+
+    if (ImGui::Button("Search")) {
+        LookupForm();
+    }
+
+    if (AddBoundObject) {
+        ImGui::Text("How much %s would you like to add?", AddBoundObject->GetName());
+        ImGui::SliderInt("number", &Configuration::Example1::Number, 1, 100);
+        if (ImGui::Button("Add")) {
+            auto player = RE::PlayerCharacter::GetSingleton()->As<RE::TESObjectREFR>();
+            player->AddObjectToContainer(AddBoundObject, nullptr, Configuration::Example1::Number, nullptr);
+        }
+    } else {
+        ImGui::Text("Form found");
     }
 }
 
@@ -39,7 +57,7 @@ void __stdcall UI::Example2::RenderWindow() {
     auto viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->GetCenter(), ImGuiCond_Appearing, ImVec2{0.5f, 0.5f});
     ImGui::SetNextWindowSize(ImVec2{viewport->Size.x * 0.4f, viewport->Size.y * 0.4f}, ImGuiCond_Appearing);
-    ImGui::Begin("My First Tool##MenuEntiryFromMod1",nullptr, ImGuiWindowFlags_MenuBar); // If two mods have the same window name, and they open at the same time.
+    ImGui::Begin("My First Tool##MenuEntiryFromMod",nullptr, ImGuiWindowFlags_MenuBar); // If two mods have the same window name, and they open at the same time.
                                                                                          // The window content will be merged, is good practice to add ##ModName after the window name.
     if (ImGui::BeginMenuBar()) {
         if (ImGui::BeginMenu("File")) {
