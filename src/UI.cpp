@@ -2,7 +2,8 @@
 
 void UI::Register() {
     Configuration::Example2::Buffer[0] = '\0';
-    SKSEMenuFramework::SetSection("Menu Entiry From Mod");
+    SKSEMenuFramework::SetSection("SKSE Menu Framework Compiled Example 0.2");
+    SKSEMenuFramework::AddSectionItem("Font Awesome", Example4::Render);
     SKSEMenuFramework::AddSectionItem("Add Item", Example1::Render);
     SKSEMenuFramework::AddSectionItem("Folder Example/Example 1", Example2::Render);
     UI::Example2::ExampleWindow = SKSEMenuFramework::AddWindow(Example2::RenderWindow);
@@ -104,4 +105,20 @@ void __stdcall UI::Example3::Render() {
         }
         ImGui::EndTable();
     }
+}
+
+void __stdcall UI::Example4::Render() {
+    FontAwesome::PushBrands();
+    ImGui::Text(TitleText.c_str());
+    FontAwesome::Pop();
+
+    FontAwesome::PushSolid();
+    ImGui::Button(Button1Text.c_str());
+    FontAwesome::Pop();
+
+    ImGui::SameLine();
+
+    FontAwesome::PushRegular();
+    ImGui::Button(Button2Text.c_str());
+    FontAwesome::Pop();
 }
